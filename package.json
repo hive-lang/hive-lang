@@ -1,0 +1,12 @@
+{
+  "name": "@hive-lang/hive-lang",
+  "version": "0.0.0",
+  "description": "A language for describing and reasoning about things.",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/hive-lang/hive-lang.git"
+  }
+}
