@@ -6,7 +6,16 @@
   "license": "MIT",
   "private": true,
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/hive-lang/hive-lang.git"
+    "type": "git",
+    "url": "https://github.com/hive-lang/hive-lang.git"
+  },
+  "bit": {
+    "componentsDefaultDirectory": "components/{name}",
+    "packageManager": "npm",
+    "resolveModules": {
+      "aliases": {
+        "@": "src"
+      }
+    }
   }
 }
