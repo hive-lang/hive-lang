@@ -5,6 +5,10 @@
         "outDir": "out",
         "sourceMap": true,
         "strict": true,
-        "declaration": true
+        "declaration": true,
+        "baseUrl": "./src",
+        "paths": {
+            "@/*": ["*"]
+        }
     }
 }

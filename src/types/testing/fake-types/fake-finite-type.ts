@@ -1,5 +1,5 @@
 import { FakeSourceContext } from "./fake-source-context";
-import { FiniteType } from "../..";
+import { FiniteType } from "@/types";
 
 export function fakeFiniteType(name: string): FiniteType<FakeSourceContext> {
   return {
