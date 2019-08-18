@@ -10,6 +10,9 @@
     "url": "https://github.com/hive-lang/hive-lang.git"
   },
   "bit": {
+    "env": {
+      "compiler": "bit.envs/compilers/typescript@3.0.5"
+    },
     "componentsDefaultDirectory": "components/{name}",
     "packageManager": "npm",
     "resolveModules": {
