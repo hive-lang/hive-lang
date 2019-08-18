@@ -20,12 +20,16 @@
             }
         ],
         "mainFile": "src/types/index.ts",
-        "trackDir": "src/types",
         "origin": "AUTHORED",
         "exported": false
     },
     "types/testing/fake-types": {
         "files": [
+            {
+                "relativePath": "src/types/testing/fake-types/fake-finite-type.spec.ts",
+                "test": true,
+                "name": "fake-finite-type.spec.ts"
+            },
             {
                 "relativePath": "src/types/testing/fake-types/fake-finite-type.ts",
                 "test": false,
