@@ -1,3 +1,6 @@
-import {FiniteType} from './finite-type';
+import { GeneralizedType } from "./generalized-type";
 
-export type Type<SourceContext> = FiniteType<SourceContext> & {sourceContext: SourceContext};
+// Type of a value at runtime. Does not support placeholders
+// (e.g. Foo<T> where T is a type parameter)
+export type Type<SourceContext> =
+    GeneralizedType<SourceContext, false, false>;
