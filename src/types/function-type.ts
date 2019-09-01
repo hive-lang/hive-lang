@@ -1,12 +1,10 @@
 import { GeneralizedType } from "./generalized-type";
 import { ObjectType } from "./object-type";
-import { TypeCase } from "./type-case";
 
-export interface FunctionType<
+export abstract class FunctionType<
       SourceContext,
       IncludesPlaceholder extends boolean,
       IncludesParameter extends boolean> {
-  case: TypeCase.Function;
-  parameters: ObjectType<SourceContext, IncludesPlaceholder, IncludesParameter>;
-  result: GeneralizedType<SourceContext, IncludesPlaceholder, IncludesParameter>;
+  abstract parameters(): ObjectType<SourceContext, IncludesPlaceholder, IncludesParameter>;
+  abstract result(): GeneralizedType<SourceContext, IncludesPlaceholder, IncludesParameter>;
 }

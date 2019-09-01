@@ -1,7 +1,9 @@
-import { TypeCase } from "./type-case";
-
-export interface FiniteType<SourceContext> {
-  case: TypeCase.Finite;
+export abstract class FiniteType<SourceContext> {
   sourceContext: SourceContext;
   symbol: string;
+
+  constructor(sourceContext: SourceContext, symbol: string) {
+    this.sourceContext = sourceContext;
+    this.symbol = symbol;
+  }
 }
