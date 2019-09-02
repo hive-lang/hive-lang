@@ -1,26 +1,11 @@
-import { ParameterRange } from "./parameter-range";
-import { AssocList } from "@/functional/collections/assoc-lists/assoc-list";
+import { BoundUpdates } from './bound-updates';
+import { AnalysisError } from '@/analysis/errors';
 
-export enum UnifyResultCase {
-  Success,
-  Error,
-}
+export type UnifyResult<SourceContext> = BoundUpdates<SourceContext> | AnalysisError;
 
-type SuccessUnifyResult<SourceContext> = {
-  readonly case: UnifyResultCase.Success,
-  readonly boundUpdates: AssocList<string, ParameterRange<SourceContext>> | null,
-};
-
-type ErrorUnifyResult = {
-  readonly case: UnifyResultCase.Error,
-};
-
-export type UnifyResult<SourceContext> =
-    SuccessUnifyResult<SourceContext> | ErrorUnifyResult;
-
-export function unifySuccess<SourceContext>(): SuccessUnifyResult<SourceContext> {
+export function unifySuccess<SourceContext>(): BoundUpdates<SourceContext> {
   return {
-    case: UnifyResultCase.Success,
-    boundUpdates: null,
+    expected: null,
+    actual: null,
   }
 }

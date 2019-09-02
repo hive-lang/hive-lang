@@ -4,4 +4,4 @@ import { GeneralizedType } from "./generalized-type";
 // references to type parameters, (e.g. Foo<T> where T is a type
 // parameter)
 export type ExpressionType<SourceContext> =
-    GeneralizedType<SourceContext, true, false>;
+    GeneralizedType<SourceContext, true, false, true>;

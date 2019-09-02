@@ -1,6 +1,6 @@
-import { ExpressionType } from "@/types";
+import { ParameterizedType } from "../parameterized-type";
 
 export interface ParameterRange<SourceContext> {
-  readonly lower: ExpressionType<SourceContext>;
-  readonly upper: ExpressionType<SourceContext>;
+  readonly general: ParameterizedType<SourceContext>;
+  readonly specific: ParameterizedType<SourceContext>;
 }

@@ -33,13 +33,12 @@ export function updateParameterBounds<SourceContext>(
       ({key: symbol, value: state}) => {
         const updatedBounds = lookup(boundUpdates, symbol);
         const newBounds = updatedBounds !== null ? updatedBounds : state.bounds;
-        const result: KeyValue<string, ParameterState<SourceContext>> = {
+        return {
           key: symbol, 
           value: {
             ...state,
             bounds: newBounds,
           }
         };
-        return result;
       });
 }

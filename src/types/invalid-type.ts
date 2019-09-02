@@ -2,4 +2,4 @@ export class InvalidType {
   sourceContext = new BuiltinSourceContext();
 };
 
-export const ANYTHING = new InvalidType();
+export const INVALID_TYPE = new InvalidType();

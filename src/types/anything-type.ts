@@ -2,4 +2,4 @@ export class AnythingType {
   sourceContext = new BuiltinSourceContext();
 };
 
-export const ANYTHING = new AnythingType();
+export const ANYTHING_TYPE = new AnythingType();

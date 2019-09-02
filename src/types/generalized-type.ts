@@ -3,6 +3,8 @@ import { ObjectType } from "./object-type";
 import { FunctionType } from  "./function-type";
 import { TypePlaceholder } from "./type-placeholder";
 import { TypeParameter } from "./type-parameter";
+import { AnythingType } from "./anything-type";
+import { InvalidType } from "./invalid-type";
 
 // Ideally, types would be parameterized on their children, e.g.
 //
@@ -21,9 +23,11 @@ import { TypeParameter } from "./type-parameter";
 export type GeneralizedType<
         SourceContext,
         IncludesPlaceholder extends boolean,
-        IncludesParameter extends boolean> =
+        IncludesParameter extends boolean,
+        IncludesRangeTypes extends boolean> =
     (IncludesPlaceholder extends true ? TypePlaceholder<SourceContext> : never)
         | (IncludesParameter extends true ? TypeParameter<SourceContext> : never)
+        | (IncludesRangeTypes extends true ? AnythingType | InvalidType : never)
         | FiniteType<SourceContext>
         | ObjectType<SourceContext, IncludesPlaceholder, IncludesParameter>
         | FunctionType<SourceContext, IncludesPlaceholder, IncludesParameter>;

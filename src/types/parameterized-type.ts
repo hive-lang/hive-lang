@@ -4,4 +4,4 @@ import { GeneralizedType } from "./generalized-type";
 // Can contain references to type parameters, e.g.:
 // <T>(x: T) => T.
 export type ParameterizedType<SourceContext> =
-    GeneralizedType<SourceContext, false, true>;
+    GeneralizedType<SourceContext, true, true, true>;
