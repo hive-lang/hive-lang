@@ -1,3 +1,5 @@
+import { BuiltinSourceContext } from './builtin-source-context';
+
 export class AnythingType {
   sourceContext = new BuiltinSourceContext();
 };

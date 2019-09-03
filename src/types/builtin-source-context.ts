@@ -1,1 +1,1 @@
-class BuiltinSourceContext {};
+export class BuiltinSourceContext {};

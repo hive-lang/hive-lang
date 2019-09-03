@@ -19,3 +19,11 @@ export function assocFromMap<K, V>(map: Map<K, V>): AssocList<K, V> {
   }
   return a;
 }
+
+export function assocFromObject<V>(object: {[index: string]: V}): AssocList<string, V> {
+  let a: AssocList<string, V> = null;
+  for (const key in object) {
+    a = assocCons(key, object[key], a);
+  }
+  return a;
+}

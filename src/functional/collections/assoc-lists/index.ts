@@ -1,1 +1,1 @@
-export { AssocList, assocCons } from './assoc-list';
+export { AssocList, assocCons, assocFromObject } from './assoc-list';

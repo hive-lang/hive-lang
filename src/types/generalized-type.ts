@@ -29,5 +29,5 @@ export type GeneralizedType<
         | (IncludesParameter extends true ? TypeParameter<SourceContext> : never)
         | (IncludesRangeTypes extends true ? AnythingType | InvalidType : never)
         | FiniteType<SourceContext>
-        | ObjectType<SourceContext, IncludesPlaceholder, IncludesParameter>
-        | FunctionType<SourceContext, IncludesPlaceholder, IncludesParameter>;
+        | ObjectType<SourceContext, IncludesPlaceholder, IncludesParameter, IncludesRangeTypes>
+        | FunctionType<SourceContext, IncludesPlaceholder, IncludesParameter, IncludesRangeTypes>;
