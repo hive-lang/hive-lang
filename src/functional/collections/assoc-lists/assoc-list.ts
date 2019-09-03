@@ -5,9 +5,9 @@ export interface KeyValue<K, V> {
   readonly value: V;
 }
 
-export interface AssocList<K, V> extends List<KeyValue<K, V>> {}
+export type AssocList<K, V> = List<KeyValue<K, V>>;
 
-export function assocCons<K, V>(key: K, value: V, tail: AssocList<K, V> | null):
+export function assocCons<K, V>(key: K, value: V, tail: AssocList<K, V>):
     AssocList<K, V> {
   return cons({key, value}, tail);
 }

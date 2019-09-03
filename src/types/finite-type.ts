@@ -1,4 +1,4 @@
-export abstract class FiniteType<SourceContext> {
+export class FiniteType<SourceContext> {
   sourceContext: SourceContext;
   symbol: string;
 

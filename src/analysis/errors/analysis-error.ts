@@ -1,1 +1,1 @@
-export class HiveError {}
+export class AnalysisError {}

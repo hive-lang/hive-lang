@@ -5,8 +5,8 @@ export interface ZipEntry<T, U> {
   second: U;
 }
 
-export function zip<T, U>(first: List<T> | null, second: List<U> | null):
-     List<ZipEntry<T, U>> | null {
+export function zip<T, U>(first: List<T>, second: List<U>):
+     List<ZipEntry<T, U>> {
   if (first === null && second === null) {
     return null;
   }

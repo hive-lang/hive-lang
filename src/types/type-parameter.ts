@@ -1,5 +1,3 @@
-import { TypeCase } from "./type-case";
-
 // This represents a type parameter for a function that is being
 // called. When typechecking the following example:
 //
@@ -15,7 +13,6 @@ import { TypeCase } from "./type-case";
 // even though it is not explicitly mentioned in bar. As part
 // of type-checking, a specific type will be inferred for T.
 export interface TypeParameter<SourceContext> {
-  case: TypeCase.Parameter;
   sourceContext: SourceContext;
   symbol: string;
 }

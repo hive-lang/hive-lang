@@ -1,5 +1,3 @@
-import { TypeCase } from "./type-case";
-
 // This represents a placeholder for a type parameter, e.g.:
 //
 // function foo<T>(x: T) {
@@ -15,7 +13,6 @@ import { TypeCase } from "./type-case";
 // represented by a TypeParameter rather than a TypePlaceholder
 // when typechecking code that *calls* foo().
 export interface TypePlaceholder<SourceContext> {
-  case: TypeCase.Placeholder;
   sourceContext: SourceContext;
   symbol: string;
 }

@@ -1,5 +1,5 @@
 import { ParameterizedType } from "@/types/parameterized-type";
-import { AssocList } from "@/functional/collections/assoc-lists/assoc-list";
+import { AssocList } from "@/functional/collections/assoc-lists";
 import { ParameterState } from "./parameter-state";
 import { FiniteType } from "@/types/finite-type";
 import { Variance } from "./variance";
@@ -18,7 +18,7 @@ export function unify<SourceContext>(
   return new AnalysisError();
 }
 
-export function unifyFinite<SourceContext>(
+function unifyFinite<SourceContext>(
         expected: FiniteType<SourceContext>,
         actual: ParameterizedType<SourceContext>,
         variance: Variance,
