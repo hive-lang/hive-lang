@@ -1,55 +1,45 @@
-import { GeneralizedType } from "./generalized-type";
+import { GeneralizedType, TypeFlavor } from "./generalized-type";
 
-export abstract class ObjectType<
-      SourceContext,
-      IncludesPlaceholder extends boolean,
-      IncludesParameter extends boolean,
-      IncludesRangeTypes extends boolean> {
-  abstract keys(): Set<string>;
+export abstract class ObjectType<SourceContext, Flavour extends TypeFlavor> {
+  abstract keys(): Iterable<string>;
   abstract get(property: string):
-      GeneralizedType<
-          SourceContext,
-          IncludesPlaceholder,
-          IncludesParameter,
-          IncludesRangeTypes>;
+      GeneralizedType<SourceContext, Flavour>;
 }
 
-type PropertyRef<
-        SourceContext,
-        IncludesPlaceholder extends boolean,
-        IncludesParameter extends boolean,
-        IncludesRangeTypes extends boolean> =
-    'self'
-        | GeneralizedType<
-            SourceContext,
-            IncludesPlaceholder,
-            IncludesParameter,
-            IncludesRangeTypes>;
+export type SelfRef = 'self';
+export const SELF_REF: SelfRef = 'self';
 
-class ObjectTypeImpl<
-        SourceContext,
-        IncludesPlaceholder extends boolean,
-        IncludesParameter extends boolean,
-        IncludesRangeTypes extends boolean>
-    extends ObjectType<
-        SourceContext,
-        IncludesPlaceholder,
-        IncludesParameter,
-        IncludesRangeTypes> {
+export type PropertyTypeRef<SourceContext, Flavour extends TypeFlavor> =
+    SelfRef | GeneralizedType<SourceContext, Flavour>;
+
+class ObjectTypeImpl<SourceContext, Flavour extends TypeFlavor>
+    extends ObjectType<SourceContext, Flavour> {
   private readonly properties:
-      Map<
-          string,
-          PropertyRef<
-              SourceContext,
-              IncludesPlaceholder,
-              IncludesParameter,
-              IncludesRangeTypes>>;
+      Map<string, PropertyTypeRef<SourceContext, Flavour>>;
 
-  constructor() {
-      
+  constructor(properties: Map<string, PropertyTypeRef<SourceContext, Flavour>>) {
+    super();
+    this.properties = properties;
+  }
+
+  keys(): Iterable<string> {
+    return this.properties.keys();
+  }
+
+  get(property: string): GeneralizedType<SourceContext, Flavour> {
+     const typeRef = this.properties.get(property);
+     if (typeRef === undefined) {
+       throw new Error();
+     }
+     if (typeRef === 'self') {
+       return this;
+     }
+     return typeRef;
   }
 }
 
-export function objectType() {
-
+export function objectType<SourceContext, Flavour extends TypeFlavor>(
+        propertyTypes: Map<string, PropertyTypeRef<SourceContext, Flavour>>):
+    ObjectType<SourceContext, Flavour> {
+  return new ObjectTypeImpl(propertyTypes);
 }

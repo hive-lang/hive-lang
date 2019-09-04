@@ -6,6 +6,12 @@ import { TypeParameter } from "./type-parameter";
 import { AnythingType } from "./anything-type";
 import { InvalidType } from "./invalid-type";
 
+export enum TypeFlavor {
+    Type,
+    Expression,
+    Parameterized,
+}
+
 // Ideally, types would be parameterized on their children, e.g.
 //
 // type Type = FiniteType | ObjectType<Type>;
@@ -20,14 +26,10 @@ import { InvalidType } from "./invalid-type";
 // a type parameter that configures that list.
 //
 // Therefore all possible sets of types must be defined here.
-export type GeneralizedType<
-        SourceContext,
-        IncludesPlaceholder extends boolean,
-        IncludesParameter extends boolean,
-        IncludesRangeTypes extends boolean> =
-    (IncludesPlaceholder extends true ? TypePlaceholder<SourceContext> : never)
-        | (IncludesParameter extends true ? TypeParameter<SourceContext> : never)
-        | (IncludesRangeTypes extends true ? AnythingType | InvalidType : never)
+export type GeneralizedType<SourceContext, Flavour extends TypeFlavor> =
+    (Flavour extends (TypeFlavor.Expression | TypeFlavor.Parameterized) ? TypePlaceholder<SourceContext> : never)
+        | (Flavour extends TypeFlavor.Parameterized ? TypeParameter<SourceContext> : never)
+        | (Flavour extends (TypeFlavor.Expression | TypeFlavor.Parameterized) ? AnythingType | InvalidType : never)
         | FiniteType<SourceContext>
-        | ObjectType<SourceContext, IncludesPlaceholder, IncludesParameter, IncludesRangeTypes>
-        | FunctionType<SourceContext, IncludesPlaceholder, IncludesParameter, IncludesRangeTypes>;
+        | ObjectType<SourceContext, Flavour>
+        | FunctionType<SourceContext, Flavour>;

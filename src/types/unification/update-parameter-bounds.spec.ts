@@ -2,10 +2,11 @@ import { expect } from "chai";
 import { updateParameterBounds } from './update-parameter-bounds';
 import { assocFromObject, AssocList } from "@/functional/collections/assoc-lists";
 import { ParameterState } from "./parameter-state";
-import { TestingSourceContext } from "@/types/testing/types";
+import { TestingSourceContext, testObjectType, testFiniteType } from "@/types/testing";
 import { Variance } from "./variance";
 import { ANYTHING_TYPE } from "../anything-type";
 import { ParameterRange } from "./parameter-range";
+import { BuiltinSourceContext } from "../builtin-source-context";
 
 describe('types/unification/updateParameterBounds', function() {
   it('does nothing when both parameters and updates are null', function() {
@@ -27,20 +28,37 @@ describe('types/unification/updateParameterBounds', function() {
           b: typicalParameterState(),
           c: typicalParameterState(),
         });
-    const updates: AssocList<string, ParameterRange<TestingSourceContext> =
+    const updates: AssocList<string, ParameterRange<TestingSourceContext>> =
         assocFromObject({
-          a: {general: new Para}
+          b: {
+            general: testObjectType({a: ANYTHING_TYPE}),
+            specific: testObjectType({a: testFiniteType('foo')}),
+          },
         });
-    expect(updateParameterBounds(parameters, null)).deep.equals(parameters);
+    const expected =
+      assocFromObject({
+        a: typicalParameterState(),
+        b: parameterState({
+          general: testObjectType({a: ANYTHING_TYPE}),
+          specific: testObjectType({a: testFiniteType('foo')}),
+        }),
+        c: typicalParameterState(),
+      });
+    expect(updateParameterBounds(parameters, updates)).deep.equals(expected);
   });
 
   function typicalParameterState(): ParameterState<TestingSourceContext> {
+    return parameterState({
+      general: ANYTHING_TYPE,
+      specific: null
+    });
+  }
+
+  function parameterState(bounds: ParameterRange<TestingSourceContext>):
+      ParameterState<TestingSourceContext> {
     return {
       baseVariance: Variance.Covariant,
-      bounds: {
-        general: ANYTHING_TYPE,
-        specific: null
-      }
+      bounds: bounds,
     };
   }
 });
