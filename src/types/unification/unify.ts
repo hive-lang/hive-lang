@@ -5,32 +5,17 @@ import { FiniteType } from "@/types/finite-type";
 import { Variance } from "./variance";
 import { UnifyResult, unifySuccess } from "./unify-result";
 import { AnalysisError } from "@/analysis/errors";
+import { unifyFinite } from "./unify-finite";
 
 export function unify<SourceContext>(
         expected: ParameterizedType<SourceContext>,
+        expectedParameters: AssocList<string, ParameterState<SourceContext>>,
         actual: ParameterizedType<SourceContext>,
-        variance: Variance,
-        parameters: AssocList<string, ParameterState<SourceContext>>):
+        actualParameters: AssocList<string, ParameterState<SourceContext>>,
+        variance: Variance):
       UnifyResult<SourceContext> {
   if (expected instanceof FiniteType) {
-    return unifyFinite(expected, actual, variance, parameters);
+    return unifyFinite(expected, expectedParameters, actual, actualParameters, variance);
   }
-  return new AnalysisError();
-}
-
-function unifyFinite<SourceContext>(
-        expected: FiniteType<SourceContext>,
-        actual: ParameterizedType<SourceContext>,
-        variance: Variance,
-        parameters: AssocList<string, ParameterState<SourceContext>>):
-    UnifyResult<SourceContext> {
-  if (actual instanceof FiniteType) {
-    if (actual.symbol === expected.symbol) {
-      return unifySuccess();
-    } else {
-      return new AnalysisError();
-    }
-  }
-
   return new AnalysisError();
 }

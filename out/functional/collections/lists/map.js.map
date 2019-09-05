@@ -1,0 +1,1 @@
+{"version":3,"file":"map.js","sourceRoot":"","sources":["../../../../src/functional/collections/lists/map.ts"],"names":[],"mappings":";;AAAA,iCAA8C;AAE9C,SAAgB,GAAG,CAAO,IAAa,EAAE,EAAe;IAEtD,IAAI,IAAI,KAAK,IAAI,EAAE;QACjB,OAAO,IAAI,CAAC;KACb;IAED,OAAO,WAAI,CAAC,EAAE,CAAC,UAAG,CAAC,IAAI,CAAC,CAAC,EAAE,GAAG,CAAC,UAAG,CAAC,IAAI,CAAC,EAAE,EAAE,CAAC,CAAC,CAAC;AACjD,CAAC;AAPD,kBAOC"}
