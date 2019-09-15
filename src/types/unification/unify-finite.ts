@@ -6,6 +6,7 @@ import { Variance } from "./variance";
 import { UnifyResult, unifySuccess } from "./unify-result";
 import { AnalysisError } from "@/analysis/errors";
 import { lookup } from "@/functional/collections/assoc-lists";
+import { unify } from "./unify";
 
 export function unifyFinite<SourceContext>(
     expected: FiniteType<SourceContext>,
@@ -21,13 +22,15 @@ export function unifyFinite<SourceContext>(
     }
   }
 
-  console.log('got here');
   if (actual instanceof TypeParameter) {
-    console.log('and here');
     const parameter = lookup(actualParameters, actual.symbol);
     if (parameter == null) {
       throw 'error';
     }
+
+    // Test that the expected type is a subtype of the general type.
+    // WHAT TO DO ABOUT BASE VARIANCE??
+    unify(parameter.bounds.general, actualParameters, expected, expectedParameters, variance);
   }
   return new AnalysisError();
 }

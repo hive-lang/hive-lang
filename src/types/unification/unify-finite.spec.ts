@@ -4,6 +4,8 @@ import { Variance } from "./variance";
 import { unifySuccess } from "./unify-result";
 import { AnalysisError } from "@/analysis/errors";
 import { unifyFinite } from "./unify-finite";
+import { typicalParameterState, parameterState } from './test-parameter-state'
+import { assocFromObject } from "@/functional/collections/assoc-lists";
 
 describe('types/unification/unifyFinite', function() {
   it('accepts subtype of type with same symbol', function() {
@@ -19,7 +21,30 @@ describe('types/unification/unifyFinite', function() {
         .throw();
   });
   it('narrows parameter bounds', function() {
-    expect(() => unifyFinite(testFiniteType('foo'), null, testParameterReference('a'), parameters, Variance.Covariant))
-        .throw();
+    const parameters = assocFromObject({a: typicalParameterState()});
+    const fooType = testFiniteType('foo');
+    expect(unifyFinite(fooType, null, testParameterReference('a'), parameters, Variance.Covariant))
+        .equal({
+          expected: null,
+          actual: assocFromObject({
+            a: {
+              general: fooType,
+              specific: null,
+            },
+          }),
+        });
+  });
+  it('rejects type outside of bounds', function() {
+    const fooType = testFiniteType('foo');
+    const barType = testFiniteType('bar');
+    const parameters =
+      assocFromObject({
+        a: parameterState({
+          general: barType,
+          specific: null
+        }),
+      });
+    expect(unifyFinite(fooType, null, testParameterReference('a'), parameters, Variance.Covariant))
+        .instanceOf(AnalysisError);
   });
 });
