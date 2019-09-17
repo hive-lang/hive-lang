@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { lookup } from './lookup';
-import { assocFromMap, assocFromObject } from "./assoc-list";
+import { assocFromObject } from "./assoc-list";
 
 describe('function/collections/asssoc-lists/lookup', function() {
   it('finds nothing in null', function() {
