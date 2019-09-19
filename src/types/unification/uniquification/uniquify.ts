@@ -1,13 +1,11 @@
 import { TypeFlavor, GeneralizedType } from '@/types/generalized-type';
-import { ExpressionFiniteLabel } from '@/types/expression-finite-label';
-import { UniquifiedTypeParameterLabel } from './uniquified-type-parameter-label';
 import { TypeParameter } from '@/types/type-parameter';
 import { ObjectType } from '@/types/object-type';
 import { FunctionType } from '@/types/function-type';
 
 export function uniquify<SourceContext>(
-        type: GeneralizedType<SourceContext, TypeFlavor.Parameterized, ExpressionFiniteLabel>):
-    GeneralizedType<SourceContext, TypeFlavor.Parameterized, UniquifiedTypeParameterLabel> {
+        type: GeneralizedType<SourceContext, TypeFlavor.Parameterized>):
+    GeneralizedType<SourceContext, TypeFlavor.Parameterized> {
   if (type instanceof TypeParameter) {
     throw new Error();
   } else if (type instanceof ObjectType) {

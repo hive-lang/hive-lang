@@ -5,7 +5,6 @@ import { TypePlaceholder } from "./type-placeholder";
 import { TypeParameter } from "./type-parameter";
 import { AnythingType } from "./anything-type";
 import { InvalidType } from "./invalid-type";
-import { BaseTypeParameterLabel } from "./base-type-parameter-label";
 
 export enum TypeFlavor {
     Type,
@@ -27,10 +26,10 @@ export enum TypeFlavor {
 // a type parameter that configures that list.
 //
 // Therefore all possible sets of types must be defined here.
-export type GeneralizedType<SourceContext, Flavour extends TypeFlavor, FiniteLabel extends BaseTypeParameterLabel> =
+export type GeneralizedType<SourceContext, Flavour extends TypeFlavor> =
     (Flavour extends (TypeFlavor.Expression | TypeFlavor.Parameterized) ? TypePlaceholder<SourceContext> : never)
         | (Flavour extends TypeFlavor.Parameterized ? TypeParameter<SourceContext> : never)
         | (Flavour extends (TypeFlavor.Expression | TypeFlavor.Parameterized) ? AnythingType | InvalidType : never)
-        | FiniteType<SourceContext, FiniteLabel>
-        | ObjectType<SourceContext, Flavour, FiniteLabel>
-        | FunctionType<SourceContext, Flavour, FiniteLabel>;
+        | FiniteType<SourceContext>
+        | ObjectType<SourceContext, Flavour>
+        | FunctionType<SourceContext, Flavour>;

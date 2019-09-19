@@ -1,24 +1,23 @@
 import { GeneralizedType, TypeFlavor } from "./generalized-type";
-import { BaseTypeParameterLabel } from "./base-type-parameter-label";
 
-export abstract class ObjectType<SourceContext, Flavour extends TypeFlavor, FiniteLabel  extends BaseTypeParameterLabel> {
+export abstract class ObjectType<SourceContext, Flavour extends TypeFlavor> {
   abstract keys(): Iterable<string>;
   abstract get(property: string):
-      GeneralizedType<SourceContext, Flavour, FiniteLabel>;
+      GeneralizedType<SourceContext, Flavour>;
 }
 
 export type SelfRef = 'self';
 export const SELF_REF: SelfRef = 'self';
 
-export type PropertyTypeRef<SourceContext, Flavour extends TypeFlavor, FiniteLabel  extends BaseTypeParameterLabel> =
-    SelfRef | GeneralizedType<SourceContext, Flavour, FiniteLabel>;
+export type PropertyTypeRef<SourceContext, Flavour extends TypeFlavor> =
+    SelfRef | GeneralizedType<SourceContext, Flavour>;
 
-class ObjectTypeImpl<SourceContext, Flavour extends TypeFlavor, FiniteLabel  extends BaseTypeParameterLabel>
-    extends ObjectType<SourceContext, Flavour, FiniteLabel> {
+class ObjectTypeImpl<SourceContext, Flavour extends TypeFlavor>
+    extends ObjectType<SourceContext, Flavour> {
   private readonly properties:
-      Map<string, PropertyTypeRef<SourceContext, Flavour, FiniteLabel>>;
+      Map<string, PropertyTypeRef<SourceContext, Flavour>>;
 
-  constructor(properties: Map<string, PropertyTypeRef<SourceContext, Flavour, FiniteLabel>>) {
+  constructor(properties: Map<string, PropertyTypeRef<SourceContext, Flavour>>) {
     super();
     this.properties = properties;
   }
@@ -27,7 +26,7 @@ class ObjectTypeImpl<SourceContext, Flavour extends TypeFlavor, FiniteLabel  ext
     return this.properties.keys();
   }
 
-  get(property: string): GeneralizedType<SourceContext, Flavour, FiniteLabel> {
+  get(property: string): GeneralizedType<SourceContext, Flavour> {
      const typeRef = this.properties.get(property);
      if (typeRef === undefined) {
        throw new Error();
@@ -39,8 +38,8 @@ class ObjectTypeImpl<SourceContext, Flavour extends TypeFlavor, FiniteLabel  ext
   }
 }
 
-export function objectType<SourceContext, Flavour extends TypeFlavor, FiniteLabel  extends BaseTypeParameterLabel>(
-        propertyTypes: Map<string, PropertyTypeRef<SourceContext, Flavour, FiniteLabel>>):
-    ObjectType<SourceContext, Flavour, FiniteLabel> {
+export function objectType<SourceContext, Flavour extends TypeFlavor>(
+        propertyTypes: Map<string, PropertyTypeRef<SourceContext, Flavour>>):
+    ObjectType<SourceContext, Flavour> {
   return new ObjectTypeImpl(propertyTypes);
 }
