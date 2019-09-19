@@ -1,0 +1,8 @@
+{
+  "mocha.requires": [
+    "ts-node/register",
+    "tsconfig-paths/register"
+  ],
+  "mocha.files.glob": "src/**/*.spec.ts",
+  "tslint.packageManager": "yarn"
+}

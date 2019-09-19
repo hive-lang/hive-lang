@@ -1,8 +1,8 @@
-export class FiniteType<SourceContext> {
+export class FiniteType<SourceContext, FiniteLabel> {
   sourceContext: SourceContext;
-  symbol: string;
+  symbol: FiniteLabel;
 
-  constructor(sourceContext: SourceContext, symbol: string) {
+  constructor(sourceContext: SourceContext, symbol: FiniteLabel) {
     this.sourceContext = sourceContext;
     this.symbol = symbol;
   }
